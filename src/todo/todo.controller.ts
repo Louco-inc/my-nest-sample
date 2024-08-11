@@ -6,14 +6,9 @@ import { CreateTaskDto } from './create-task.dto';
 export class TodoController {
   constructor(private prisma: PrismaService) {}
   @Get('list')
-  getList() {
-    return [
-      {
-        title: '牛乳を買いに行く',
-        due_on: '2022-12-24',
-        done: false,
-      },
-    ];
+  async getList() {
+    const result = await this.prisma.task.findMany();
+    return [...result];
   }
 
   @Post('')
